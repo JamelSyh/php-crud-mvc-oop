@@ -23,17 +23,17 @@ $row = get_data();
               <tr class="candidates-list">
                 <td class="title">
                   <div class="thumb">
-                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar<?php echo $row["id"] % 7 + 1; ?>.png" alt="">
+                    <img class="img-fluid" src=<?php echo $row["photo"] ?? "https://bootdey.com/img/Content/avatar/avatar" . $row["Id"] % 7 + 1 . ".png" ?> alt="">
                   </div>
                   <div class="candidate-list-details">
                     <div class="candidate-list-info">
                       <div class="candidate-list-title">
-                        <h5 class="mb-0"><a href="#"><?php echo $row["name"] ?></a></h5>
+                        <h5 class="mb-0"><a href="#"><?php echo $row["Nom"] . " " . $row["Prenom"]; ?></a></h5>
                       </div>
                       <div class="candidate-list-option">
                         <ul class="list-unstyled">
                           <li>
-                            <?php echo $row["number"]; ?>
+                            <?php echo $row["Email"]; ?>
                           </li>
                         </ul>
                       </div>
@@ -41,17 +41,17 @@ $row = get_data();
                   </div>
                 </td>
                 <td class="candidate-list-favourite-time text-center">
-                  <span class="candidate-list-time order-1"><?php echo $row["id"]; ?></span>
+                  <span class="candidate-list-time order-1"><?php echo $row["groupe"]; ?></span>
                 </td>
                 <td>
                   <ul class="list-unstyled mb-0 d-flex justify-content-end">
                     <li>
-                      <a href="../view/update.php?id=<?= $row["id"] ?>" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit">
+                      <a href="../view/update.php?id=<?= $row["Id"] ?>" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit">
                         <i class="fas fa-pencil-alt"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="../controller/delete_controller.php?id=<?= $row["id"] ?>" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete">
+                      <a href="../controller/delete_controller.php?id=<?= $row["Id"] ?>" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete">
                         <i class="far fa-trash-alt"></i>
                       </a>
                     </li>

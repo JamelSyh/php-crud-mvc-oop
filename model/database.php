@@ -3,13 +3,21 @@
 class Database
 {
 
+  /*
+   
+    database name = isil
+    table name = etudiants
+    table structure = (Id, Nom, Prenom, Email, groupe, photo)
+
+  */
+
   public $host  = "localhost";
-  public $db = "test_crud";
-  public $user = "root";
-  public $password = "256841";
-  public $table = "users";
-  public $dsn;
-  public $conn;
+  public $db = "isil";
+  public $user = "root"; // user name
+  public $password = "256841"; // password
+  public $table = "etudiants";
+  public $dsn; // mysql connection url
+  public $conn; // mysql pdo connection object
 
   function __construct()
   {
@@ -26,8 +34,8 @@ class Database
   {
 
     try {
-      $sql = "INSERT INTO " . $this->table . "(name, number)
-        values(:name, :number)";
+      $sql = "INSERT INTO " . $this->table . "(Nom, Prenom, Email, groupe, photo)
+        values(:lastname, :firstname, :email, :group, :photo)";
       $statment = $this->conn->prepare($sql);
       return $statment->execute($placeholder);
     } catch (PDOException $e) {
@@ -41,9 +49,12 @@ class Database
     try {
       $sql = "UPDATE " . $this->table . " 
         SET 
-        name = :name,
-        number = :number 
-        WHERE id = :id";
+        Nom = :lastname,
+        Prenom = :firstname,
+        Email = :email,
+        groupe = :group,
+        photo = :photo 
+        WHERE Id = :id";
       $statment = $this->conn->prepare($sql);
       $statment->execute($placeholder);
       return $statment;
@@ -52,6 +63,7 @@ class Database
     }
   }
 
+  // get all data
   function query_all()
   {
 
@@ -64,11 +76,12 @@ class Database
     }
   }
 
+  // get one item by id
   function query_by_id($placeholder)
   {
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
+      $sql = "SELECT * FROM " . $this->table . " WHERE Id = :id";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":id", $placeholder["id"]);
@@ -79,13 +92,14 @@ class Database
     }
   }
 
+  // get all items matched (mached by LIKE) by key (search input) 
   function query_by($placeholder)
   {
-    $key = key($placeholder);
+    $key = key($placeholder); // get the key of the first element of the argument $placeholder
     $pattern = "%" . $placeholder[$key] . "%";
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(name, number) LIKE :$key";
+      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(Nom, Prenom, groupe) LIKE :$key";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":$key", $pattern);
@@ -96,6 +110,7 @@ class Database
     }
   }
 
+  // get all data Limited (used by pagination)
   function query_limit($placeholder)
   {
 
@@ -112,13 +127,14 @@ class Database
     }
   }
 
+  // get all data Limited with with search (used by pagination + search)
   function query_limit_by($placeholder)
   {
-    $key = "name";
+    $key = "input"; // the key of the element used by Like operator ($key = "input" is search input)
     $pattern = "%" . $placeholder[$key] . "%";
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(name, number) LIKE :$key LIMIT :start, :end";
+      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(Nom, Prenom, groupe) LIKE :$key LIMIT :start, :end";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":$key", $pattern);
@@ -136,7 +152,7 @@ class Database
   {
 
     try {
-      $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
+      $sql = "DELETE FROM " . $this->table . " WHERE Id = :id";
       $statment = $this->conn->prepare($sql);
       $statment->execute($placeholder);
       return $statment;
