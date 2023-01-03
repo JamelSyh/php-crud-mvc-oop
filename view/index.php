@@ -36,16 +36,16 @@ $result = $input["data"];
                   <tr class="candidates-list">
                     <td class="title">
                       <div class="thumb">
-                        <img class="img-fluid" src=<?php echo !empty($value["photo"]) ? $value["photo"] : "https://bootdey.com/img/Content/avatar/avatar" . ($value["Id"] % 7 + 1) . ".png"; ?> alt="">
+                        <img class="img-fluid" src=<?php echo $value["photo"] != "null" ? $value["photo"] : "https://bootdey.com/img/Content/avatar/avatar" . ($value["id"] % 7 + 1) . ".png"; ?> alt="">
                       </div>
                       <div class="candidate-list-details">
                         <div class="candidate-list-info">
                           <div class="candidate-list-title">
-                            <h5 class="mb-0"><a href="view.php?id=<?= $value["Id"] ?>"><?php echo $value["Nom"] . " " . $value["Prenom"]; ?></a></h5>
+                            <h5 class="mb-0"><a href="view.php?id=<?= $value["id"] ?>"><?php echo $value["nom"] . " " . $value["prenom"]; ?></a></h5>
                           </div>
                           <div class="candidate-list-option">
                             <ul class="list-unstyled">
-                              <li><?php echo $value["Email"]; ?></li>
+                              <li><?php echo $value["email"]; ?></li>
                             </ul>
                           </div>
                         </div>
@@ -57,17 +57,17 @@ $result = $input["data"];
                     <td>
                       <ul class="list-unstyled mb-0 d-flex justify-content-end">
                         <li>
-                          <a href="view.php?id=<?= $value["Id"] ?>" class="text-primary" data-toggle="tooltip" title="" data-original-title="view">
+                          <a href="view.php?id=<?= $value["id"] ?>" class="text-primary" data-toggle="tooltip" title="" data-original-title="view">
                             <i class="far fa-eye"></i>
                           </a>
                         </li>
                         <li>
-                          <a href="../view/update.php?id=<?= $value["Id"] ?>" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit">
+                          <a href="../view/update.php?id=<?= $value["id"] ?>" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit">
                             <i class="fas fa-pencil-alt"></i>
                           </a>
                         </li>
                         <li>
-                          <a href="../controller/delete_controller.php?id=<?= $value["Id"] ?>" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete">
+                          <a href="../controller/delete_controller.php?id=<?= $value["id"] ?>" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete">
                             <i class="far fa-trash-alt"></i>
                           </a>
                         </li>

@@ -15,7 +15,7 @@ class Database
   public $db = "isil";
   public $user = "root"; // user name
   public $password = "256841"; // password
-  public $table = "etudiants";
+  public $table = "students";
   public $dsn; // mysql connection url
   public $conn; // mysql pdo connection object
 
@@ -34,7 +34,7 @@ class Database
   {
 
     try {
-      $sql = "INSERT INTO " . $this->table . "(Nom, Prenom, Email, groupe, photo)
+      $sql = "INSERT INTO " . $this->table . "(nom, prenom, email, groupe, photo)
         values(:lastname, :firstname, :email, :group, :photo)";
       $statment = $this->conn->prepare($sql);
       return $statment->execute($placeholder);
@@ -49,12 +49,12 @@ class Database
     try {
       $sql = "UPDATE " . $this->table . " 
         SET 
-        Nom = :lastname,
-        Prenom = :firstname,
-        Email = :email,
+        nom = :lastname,
+        prenom = :firstname,
+        email = :email,
         groupe = :group,
         photo = :photo 
-        WHERE Id = :id";
+        WHERE id = :id";
       $statment = $this->conn->prepare($sql);
       $statment->execute($placeholder);
       return $statment;
@@ -81,7 +81,7 @@ class Database
   {
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE Id = :id";
+      $sql = "SELECT * FROM " . $this->table . " WHERE id = :id";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":id", $placeholder["id"]);
@@ -99,7 +99,7 @@ class Database
     $pattern = "%" . $placeholder[$key] . "%";
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(Nom, Prenom, groupe) LIKE :$key";
+      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(nom, prenom, groupe) LIKE :$key";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":$key", $pattern);
@@ -134,7 +134,7 @@ class Database
     $pattern = "%" . $placeholder[$key] . "%";
 
     try {
-      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(Nom, Prenom, groupe) LIKE :$key LIMIT :start, :end";
+      $sql = "SELECT * FROM " . $this->table . " WHERE CONCAT(nom, prenom, groupe) LIKE :$key LIMIT :start, :end";
 
       $statment = $this->conn->prepare($sql);
       $statment->bindValue(":$key", $pattern);
@@ -152,7 +152,7 @@ class Database
   {
 
     try {
-      $sql = "DELETE FROM " . $this->table . " WHERE Id = :id";
+      $sql = "DELETE FROM " . $this->table . " WHERE id = :id";
       $statment = $this->conn->prepare($sql);
       $statment->execute($placeholder);
       return $statment;

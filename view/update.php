@@ -12,7 +12,7 @@ $row = get_data();
       <br>
       <div class="mb-4">
         <div class="d-flex justify-content-center mb-4">
-          <img src=<?php echo $row["photo"] ?? "https://bootdey.com/img/Content/avatar/avatar" . $row["Id"] % 7 + 1 . ".png"; ?> class="rounded-circle" id="input-image" alt="your image" style="width: 200px;" />
+          <img src=<?php echo $row["photo"] == "null" ? "https://bootdey.com/img/Content/avatar/avatar" . $row["id"] % 7 + 1 . ".png" : $row["photo"]; ?> class="rounded-circle" id="input-image" alt="your image" style="width: 200px;" />
         </div>
         <div class="d-flex justify-content-center">
           <div class="btn btn-primary btn-rounded">
@@ -38,24 +38,24 @@ $row = get_data();
         }
       </script>
       <?php include_once("alert.php"); ?>
-      <input type="text" name="id" value="<?= $row["Id"] ?>" hidden>
+      <input type="text" name="id" value="<?= $row["id"] ?>" hidden>
       <div class="row">
         <div class="col">
           <div class="form-group">
             <label for="firstname">First Name</label>
-            <input type="name" class="form-control" id="firstname" name="firstname" <?php echo isset($row["Prenom"]) ? "value=" . $row["Prenom"] : "" ?> placeholder="Enter name">
+            <input type="name" class="form-control" id="firstname" name="firstname" <?php echo isset($row["prenom"]) ? "value=" . $row["prenom"] : "" ?> placeholder="Enter name">
           </div>
         </div>
         <div class="col">
           <div class="form-group">
             <label for="lastname">Last Name</label>
-            <input type="name" class="form-control" id="lastname" name="lastname" <?php echo isset($row["Nom"]) ? "value=" . $row["Nom"] : "" ?> placeholder="Enter name">
+            <input type="name" class="form-control" id="lastname" name="lastname" <?php echo isset($row["nom"]) ? "value=" . $row["nom"] : "" ?> placeholder="Enter name">
           </div>
         </div>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" <?php echo isset($row["Email"]) ? "value=" . $row["Email"] : "" ?> placeholder="Enter name">
+        <input type="email" class="form-control" id="email" name="email" <?php echo isset($row["email"]) ? "value=" . $row["email"] : "" ?> placeholder="Enter name">
       </div>
       <div class="form-group">
         <label for="group">Group</label>

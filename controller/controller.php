@@ -64,7 +64,7 @@ class Controller
           move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
           $input["photo"] = $target_file;
         } else {
-          $input["photo"] = NULL;
+          $input["photo"] = "null";
         }
       } catch (Exception $e) {
         echo $e->getMessage();
@@ -147,7 +147,8 @@ class Controller
         move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file);
         $input["photo"] = $target_file;
       } else {
-        $input["photo"] = $old_input["photo"] ?? NULL;
+      echo $old_input["photo"];
+        $input["photo"] = $old_input["photo"] != "null" ? "null" : $old_input["photo"];
       }
 
       // validation
@@ -156,7 +157,7 @@ class Controller
         $_SESSION["message_type"] = "danger";
         header("Location: ../view/update.php?id={$input["id"]}");
         exit;
-      } else if ($old_input["Nom"] == $input["lastname"] && $old_input["Prenom"] == $input["firstname"] && $old_input["groupe"] == $input["group"] && $old_input["Email"] == $input["email"] && $input["photo"] == NULL) {
+      } else if ($old_input["nom"] == $input["lastname"] && $old_input["prenom"] == $input["firstname"] && $old_input["groupe"] == $input["group"] && $old_input["email"] == $input["email"] && $input["photo"] == "null") {
         $_SESSION["message"] = "data not changed";
         $_SESSION["message_type"] = "warning";
         header("Location: ../view/update.php?id={$input["id"]}");
