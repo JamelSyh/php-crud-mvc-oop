@@ -18,8 +18,10 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `isil`
+CREATE DATABASE IF NOT EXISTS isil;
 --
 
+USE isil;
 -- --------------------------------------------------------
 
 --
